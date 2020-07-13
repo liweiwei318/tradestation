@@ -1,0 +1,26 @@
+///Calculate the MoneyFlow base on price and volume to capture abnormal movement
+input:
+	length(NumericSimple);
+//	Color1Extreme(magenta);
+		
+var:
+	MFBase(0),MFBase2(0),MF2(0), MFAVG(0), multiply(3),
+	Xnum(0);
+	
+	MFBase = (close - open) * volume;
+	MFBase2 = AbsValue((close - open) * volume);
+	MF2 = summation(MFBase,length);
+	
+	if MFBase2>0 then MFAVG = summation(MFBase2,length)/length;
+	if MFAVG[1]>0 then Xnum = round(MFBase2/MFAVG[1],1);
+	moneyflow2=0;
+	if Xnum > 3 and close > open then 
+	begin
+	moneyflow2 = 1;
+
+	//Alert ;
+	end ;
+	if Xnum > 3 and close < open then
+	begin
+	moneyflow2 = -1;
+	end ;

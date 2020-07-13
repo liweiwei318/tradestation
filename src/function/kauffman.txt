@@ -1,0 +1,13 @@
+//To calculate the kauffman efficiency Ratio
+var:
+	hl2(0), netChg(0), incTotalChg(0), totalChg(0), eRatio(0);
+
+hl2 = (high + low)/2;
+netChg = hl2 - hl2[20];
+incTotalChg = absvalue(hl2 - hl2[1]);
+totalChg = summation(incTotalChg, 20);
+
+eRatio = (netChg / totalChg);
+kauffman=eRatio;
+//If eRatio >= 0.6 and eRatio > eRatio[1] then kauffman=1;
+//if eRatio <= -0.6 and eRatio < eRatio[1] then  kauffman=-1;
