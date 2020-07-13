@@ -1,0 +1,63 @@
+Inputs:
+Price(numericseries),
+Price_H(numericseries),
+Price_C(numericseries),
+Price_L(numericseries),
+sqzOn(TRUEFALSEREF),
+sqzOff(TRUEFALSEREF),
+noSqz(TRUEFALSEREF)
+;
+
+Variables:
+length(20),
+mult(2.0),
+lengthKC(20),
+multKC(1.5),
+basis(0),
+dev(0),
+upperBB(0),
+lowerBB(0),
+ma(0),
+tr(0), 
+trRange(0),
+rangema(0),
+upperKC(0),
+lowerKC(0),
+highByKC(0),
+lowByKC(0),
+AvgHLByKC(0),
+SMA_KC(0);
+
+
+//Calculate BB
+basis = Average(Price, length);
+
+dev = mult * StandardDev(price, length,1);
+upperBB = basis + dev;
+lowerBB = basis - dev;
+
+
+//Calculate KC
+ma =  Average(Price, lengthKC);
+tr = X_TrueRange(Price_H, Price_C, Price_L);
+rangema =  Average(tr, lengthKC);
+upperKC = ma + rangema * multKC;
+lowerKC = ma - rangema * multKC;
+
+sqzOn  = (lowerBB > lowerKC) and (upperBB < upperKC);
+sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC);
+noSqz  = (sqzOn = false) and (sqzOff = false);
+
+highByKC = Highest(Price_H, lengthKC);
+lowByKC = Lowest(Price_L, lengthKC);
+
+AvgHLByKC =  (highByKC + lowByKC) / 2.0 ;
+SMA_KC = Average(Price_C, lengthKC);
+//val = Inertia(source  -  (AvgHLByKC + SMA_KC) / 2, lengthKC) ;
+
+
+{-- Plot delta of price from Donchian mid line ----------}
+//TTM_Sequeeze = Inertia(Price  -  (AvgHLByKC + SMA_KC) / 2, lengthKC) ;
+
+TTM_Sequeeze = LinearRegValue(Price-((Highest(Price_H, length)+Lowest(Price_L, length))/2.0
+			+ xAverage(Price,Length))/2.0,length,0);

@@ -1,0 +1,1 @@
+IsSessionStart = Time > 2130 and Time <= 2130+Barinterval;

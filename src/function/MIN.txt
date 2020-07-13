@@ -1,0 +1,13 @@
+Inputs:
+value_a(numericsimple),
+value_b(numericsimple);
+
+if value_a <= value_b Then
+Begin
+	min = value_a;
+End
+
+else
+Begin
+	min = value_b;
+End;

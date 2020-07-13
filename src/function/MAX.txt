@@ -1,0 +1,13 @@
+Inputs:
+value_a(numericsimple),
+value_b(numericsimple);
+
+if value_a >= value_b Then
+Begin
+	max = value_a;
+End
+
+else
+Begin
+	max = value_b;
+End;

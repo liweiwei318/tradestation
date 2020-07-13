@@ -1,0 +1,1 @@
+IsSessionEnd = Time >= 0400 and Time < 0400+Barinterval;

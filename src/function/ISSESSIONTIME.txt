@@ -1,0 +1,1 @@
+IsSessionTime = ((TIME >= 2130 and Time <=2359) or ( Time >= 0 and TIME <= 0400));
