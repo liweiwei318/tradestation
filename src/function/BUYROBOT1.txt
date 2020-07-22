@@ -1,0 +1,99 @@
+{ This strategy is used for 1 min spy trade, the idea is follow the 3X+ volume bar direction
+and use kaufman as exit and hard stop
+Version 1 }
+ input:
+ direction(0),   //1 means buy, -1 means short and 0 means both direction
+ posi(1),
+ StartTime(745),
+ EndTime(1548);
+{ STEP 1 OF 2: Replace <CRITERIA> with the criteria that will trigger a Buy at the open 
+  of the next bar using a market order. }
+vars:st(0), buystop(0),shortstop(0),Kman(0),Kmanflag(0), timecond(0),buycond(0),Shortcond(0);
+//Condition1 = <CRITERIA> ;
+st=moneyflow2(29);
+Kman=kauffman;
+{ STEP 2 OF 2: Replace "Entry Name" (leaving the quotes) with a short name for the 
+  entry.  The entry name will appear on the chart above/below the trade arrows and in 
+  the trade by trade performance report. }
+if (close[1]<open[1] or close[2]<open[2] or close[3]<open[3] or close[4]<open[4] ) and Time>StartTime and Time<EndTime then buycond=1 else buycond=0; 
+if (close[1]>open[1] or close[2]>open[2] or close[3]>open[3]) and Time>StartTime and Time<EndTime then shortcond=1 else shortcond=0;; 
+
+if st=1 and Kman<0.45 and MarketPosition = 0 and direction>=0 and buycond=1  then begin
+	Buy ("Buy1") posi Shares Next Bar At Market;//( "buy1" ) next bar at market ;
+	buystop=low;
+	Alert("Buy1");
+end;
+if st=1 and MarketPosition <0 then begin
+	if buycond=1 and direction>=0 then  Buy ("Buy2") 2*posi Shares Next Bar At Market //( "buy2" ) next bar at market ;
+	else Buytocover ("ExitS3")  All Shares Next Bar At market;	
+	buystop=low;
+	Alert("Buy2");
+end;
+if st=1 and ((st[1]=-1 and close>open[1])or (st[2]=-1 and close>open[2]))  and Kman>=0.45 and MarketPosition <= 0  then begin
+	if MarketPosition =0 and direction>=0 and buycond=1 and Kman<0.45 then Buy ("REVB5") posi Shares Next Bar At Market;//( "buy2" ) next bar at market ;
+	if MarketPosition <0 and direction>=0 and buycond=1 and Kman<0.45 then Buy ("REVB6") 2*posi Shares Next Bar At Market//( "buy2" ) next bar at market ;
+	else Buytocover ("ExitS56")  All Shares Next Bar At market;
+	buystop=min(low[1],low[2]);
+	Alert("Buy56");
+end;
+if ((st[1]=-1 and close>open[1]) or (st[2]=-1 and close>open[2]) or (st[3]=-1 and close>open[3])) and MarketPosition <=0 then begin
+	if MarketPosition =0 and direction>=0 and buycond=1 and Kman<0.45 then Buy ("REVB3") posi Shares Next Bar At Market;//( "buy2" ) next bar at market ;
+	if MarketPosition  <0 and direction>=0 and buycond=1 and Kman<0.45 then Buy ("REVB4") 2*posi Shares Next Bar At Market//( "buy2" ) next bar at market ;
+	else Buytocover ("ExitS34")  All Shares Next Bar At market;
+	buystop=min(low[1],low[2]);
+	Alert("Buy34");
+end;
+if st=-1 and Kman>-0.45 and MarketPosition = 0 and direction<=0 and shortcond=1  then begin
+	Sellshort ("Short1") posi Shares Next Bar  At Market;// ( "Short1" ) next bar at market ;	
+	shortstop=high;
+	Alert("Short1");
+end;
+if st=-1 and MarketPosition >0 then begin
+	if  direction<=0 and shortcond=1  then  Sellshort ("Short2") 2*posi Shares Next Bar  At Market// ( "Short2" ) next bar at market ;
+	else  Sell ("ExitL3") All Shares Next Bar At market;
+	shortstop=high;
+	Alert("Short2");
+end;
+if st=-1 and ((st[1]=1 and close<open[1])or (st[2]=1 and close<open[2])) and Kman<-0.45 and MarketPosition >= 0 then begin
+	if MarketPosition =0 and direction<=0 and shortcond=1 and Kman>-0.45 then Sellshort ("REVS5") posi Shares Next Bar  At Market;// ( "Short2" ) next bar at market ;
+	if MarketPosition>0 and direction<=0 and shortcond=1 and Kman>-0.45  then Sellshort ("REVS6") posi Shares Next Bar At Market//( "buy2" ) next bar at market ;
+	else  Sell ("ExitL56") All Shares Next Bar At market;
+	shortstop=MAX(high[1],high[2]);
+	Alert("Short56");
+end;
+if ((st[1]=1 and close<open[1]) or (st[2]=1 and close<open[2]) or (st[3]=1 and close<open[3])) and MarketPosition >=0 then begin
+	if MarketPosition =0 and direction<=0 and shortcond=1 and Kman>-0.45  then Sellshort ("REVS3") posi Shares Next Bar  At Market;// ( "Short2" ) next bar at market ;
+	if MarketPosition >0 and direction<=0 and shortcond=1 and Kman>-0.45  then Sellshort ("REVS4") 2*posi Shares Next Bar At Market//( "buy2" ) next bar at market ;
+	else  Sell ("ExitL34") All Shares Next Bar At market;
+	shortstop=MAX(high[1],high[2]);
+	Alert("Short34");
+	end;
+
+// exits
+
+SetExitOnClose;
+
+if close<buystop and buystop >0  and MarketPosition >0 then begin
+	Sell ("ExitL1") All Shares Next Bar At market;
+	Alert("ExitL1");
+end;
+if close>shortstop and shortstop>0 and MarketPosition <0 then begin
+	Buytocover ("ExitS1") All Shares Next Bar At market;
+	Alert("ExitS1");
+end;
+
+//////EXIT section
+if Kman >= 0.6 and Kman > Kman[1] then Kmanflag=1 else if Kman <= -0.6 and Kman < Kman[1] then Kmanflag=-1 else  Kmanflag=0;
+if (Kmanflag=1 or Kmanflag[1]=1 or Kmanflag[2]=1 or Kmanflag[3]=1) and close<=open and close<open[1]  and MarketPosition >0 then begin  Sell ("ExitL2") All Shares Next Bar At market;Alert("ExitL2"); end;
+if (Kmanflag=-1 or Kmanflag[1]=-1 or Kmanflag[2]=-1 or Kmanflag[3]=-1) and close>=open  and close>open[1]   and MarketPosition <0 then begin Buytocover ("ExitS2")  All Shares Next Bar At market; Alert("ExitS2");end;
+
+// hard stop
+
+//if MarketPosition = 1 then Sell All Contracts Next Bar At Low[1] Stop;
+
+//if MarketPosition = -1 then Buytocover All Contracts Next Bar At High[1] Stop;
+
+SetStopContract;
+if st=1 then buystop=low; if st=-1 then shortstop=high;
+if MarketPosition >0  then SetStopLoss(AvgEntryPrice-buystop-0.01);
+if MarketPosition <0  then SetStopLoss(shortstop-AvgEntryPrice+0.01);
