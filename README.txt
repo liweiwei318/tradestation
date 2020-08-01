@@ -54,7 +54,7 @@ Development Guide
 	Output:         ORB_H (NUMERICREF) - Open Range Breakout High
 	                ORB_L (NUMERICREF) - Open Range Breakout Low
 	                ORB_M (NUMERICREF) - Open Range Breakout Middle
-	Return:         0 is Success.
+	Return:         0 is Success
 	} 
 	#endregion 
 

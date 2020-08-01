@@ -1,0 +1,44 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			Open Range Breakout 
+Type:			Indicator 
+Scaling:        Scaling on same the data
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      1~15 min
+Author:         Miller Lai
+Notes:          The open range breakout indicator
+Description:    This indicator draw ORB_H, ORB_L and ORB_M line from AM 10:00~ PM 4:00
+} 
+#endregion 
+
+vars: ORB_H(0), ORB_L(0), ORB_M(0);
+vars: ret(0), IS_PLOT_ORB_START(false);
+
+IS_PLOT_ORB_START = Time > 2200 or (Time >= 0000 and Time <= 0400); // AM 10:00
+
+ret = X_OpenRangeBreakout(H, L, ORB_H, ORB_L,ORB_M);
+
+if IS_PLOT_ORB_START Then 
+	begin
+		Plot2(ORB_H, "ORB-High");
+		Setplotcolor(2, Green);
+		TL_SetStyle(2, 2);
+
+		Plot3(ORB_L, "ORB-Low");
+		Setplotcolor(3, Red);
+		TL_SetStyle(3, 2);
+
+		Plot4(ORB_M, "ORB-Middle");
+		Setplotcolor(4, Yellow);
+		TL_SetStyle(4, 2);
+    end
+else 
+	begin
+    	NoPlot(2);
+    	NoPlot(3);
+    	NoPlot(4);
+    end;

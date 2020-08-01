@@ -1,3 +1,25 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			TTM_Squeeze
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      min, hour, day, week, month
+Author:         Miller Lai
+Notes:          This is a implementation base on John Carter's TTM( The author of Mastering the Trade book)
+Description:    This function caculate the TTM Sequeeze value
+Output:         
+                sqzOn(TRUEFALSEREF)  - Price occur Sequeeze is on
+                sqzOff(TRUEFALSEREF) - Price occur Sequeeze is off
+                noSqz(TRUEFALSEREF)  - There is no sequeeze.
+
+Return:         The TTM Sequeeze value
+} 
+#endregion 
+
 Inputs:
 Price(numericseries),
 Price_H(numericseries),
@@ -59,5 +81,5 @@ SMA_KC = Average(Price_C, lengthKC);
 {-- Plot delta of price from Donchian mid line ----------}
 //TTM_Sequeeze = Inertia(Price  -  (AvgHLByKC + SMA_KC) / 2, lengthKC) ;
 
-TTM_Sequeeze = LinearRegValue(Price-((Highest(Price_H, length)+Lowest(Price_L, length))/2.0
+TTM_Squeeze = LinearRegValue(Price-((Highest(Price_H, length)+Lowest(Price_L, length))/2.0
 			+ xAverage(Price,Length))/2.0,length,0);

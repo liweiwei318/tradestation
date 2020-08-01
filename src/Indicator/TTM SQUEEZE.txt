@@ -1,0 +1,52 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			TTM Squeeze
+Type:			Indicator
+Scaling:        Scaling on sub-graph
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      min, hour, day, week, month
+Author:         Miller Lai
+Notes:          This is a implementation base on  John Carter's TTM( The author of Mastering the Trade book)
+Description:    This indicator drawing the TTM squeeze as histogram with different color
+} 
+#endregion 
+var: ttm(0), sqzOn(false),sqzOff(false),noSqz(false) ;
+
+ttm = TTM_Sequeeze(C, H,C,L, sqzOn, sqzOff, noSqz);
+
+
+plot1(0, "Squeeze-Alert", Green);
+Setplotwidth(1, 4);
+
+plot2(ttm,"TTM Squeeze", White);
+Setplotwidth(2, 3);
+
+If ttm > 0 then
+	if ttm > ttm[1] Then
+		Begin
+			Setplotcolor(2, Cyan);
+		End
+	Else
+		Begin
+			Setplotcolor(2, Blue);
+		End	
+Else
+	if ttm > ttm[1] Then
+		Begin
+			Setplotcolor(2, Yellow);	
+		End
+	Else
+		Begin
+			Setplotcolor(2, Red);		
+		End;
+
+
+If sqzOn = True Then
+Begin
+	Setplotcolor(1, Red);
+End;
+
