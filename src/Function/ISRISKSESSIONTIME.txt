@@ -3,14 +3,15 @@
 --------------------------------------------------------------------------------------------------- 
 IDENTIFICATION 
 ============== 
-Name:			IsSessionTime 
+Name:			IsRiskSessionTime 
 Type:			Function (Simple) 
 Version:		01.00.00
 TS Version:		10.0 (Update 46)
 Timeframe:      1~5 min
 Author:         Miller Lai
-Notes:          The AM 9:30 ~ PM 4:00 is a Regular Session time
-Description:    This is a simple method to determine regular session time AM 9:30~ PM 4:00
+Notes:          The AM 9:30~9:45 is a risk session time.
+Description:    This is a simple method to determine the risk trading time
 } 
 #endregion 
-IsSessionTime = ((TIME >= 2130 and Time <=2359) or ( Time >= 0 and TIME <= 0400));
+   
+IsRiskSessionTime = Time >= 2130 and Time <= 2145;
