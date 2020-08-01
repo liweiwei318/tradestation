@@ -58,7 +58,7 @@ Development Guide
    The file with extension *.eld is a binary format of TradeStation for EasyLanguage 
    However, the *.eld is a binary format for EasyLanguage.
    In order to avoid the ELD file format or version issue which may cause the import to TDE fail.
-   Therefore, we have to provide a pure plain-text source code for each function,indicator...etc
+   Therefore, we have to provide a pure plain-text source code with encoding UTF-8 for each function,indicator...etc
 
    For example:
       TTM_SEQUEEZE.ELD
