@@ -101,7 +101,7 @@ Development Guide
 	============== 
 	Name:			OpenRangeBreakout 
 	Type:			Indicator 
-	Scaling:        Scalling on same the data
+	Scaling:        Scaling on same the data
 	Version:		01.00.00
 	TS Version:		10.0 (Update 46)
 	Timeframe:      1~15 min
