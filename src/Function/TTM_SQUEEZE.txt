@@ -10,13 +10,13 @@ TS Version:		10.0 (Update 46)
 Timeframe:      min, hour, day, week, month
 Author:         Miller Lai
 Notes:          This is a implementation base on John Carter's TTM( The author of Mastering the Trade book)
-Description:    This function caculate the TTM Sequeeze value
+Description:    This function calculate the TTM Squeeze value
 Output:         
                 sqzOn(TRUEFALSEREF)  - Price occur Sequeeze is on
                 sqzOff(TRUEFALSEREF) - Price occur Sequeeze is off
                 noSqz(TRUEFALSEREF)  - There is no sequeeze.
 
-Return:         The TTM Sequeeze value
+Return:         The TTM Squeeze value
 } 
 #endregion 
 
@@ -61,7 +61,7 @@ lowerBB = basis - dev;
 
 //Calculate KC
 ma =  Average(Price, lengthKC);
-tr = X_TrueRange(Price_H, Price_C, Price_L);
+tr = TrueRangeCustom(Price_H, Price_C, Price_L);
 rangema =  Average(tr, lengthKC);
 upperKC = ma + rangema * multKC;
 lowerKC = ma - rangema * multKC;

@@ -14,9 +14,10 @@ Notes:          This is a implementation base on John Carter's TTM( The author o
 Description:    This indicator drawing the TTM squeeze as histogram with different color
 } 
 #endregion 
+
 var: ttm(0), sqzOn(false),sqzOff(false),noSqz(false) ;
 
-ttm = TTM_Sequeeze(C, H,C,L, sqzOn, sqzOff, noSqz);
+ttm = TTM_Squeeze(C, H, C, L, sqzOn, sqzOff, noSqz);
 
 
 plot1(0, "Squeeze-Alert", Green);
@@ -49,4 +50,3 @@ If sqzOn = True Then
 Begin
 	Setplotcolor(1, Red);
 End;
-

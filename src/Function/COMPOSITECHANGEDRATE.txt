@@ -1,0 +1,70 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			CompositeChangedRate
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      min, hour, day, week, month
+Author:         Miller Lai
+Notes:          Calculate the composited stock's change rate
+Description:    This function calculate the changed rate of the composited stocks with weight
+Input:          Dictionary stocks(objectref) - A dictionary which contain symbol and weights 
+                Dictionary stocks_open_price(objectref) - A dictionary which contain symbol and open price
+                Dictionary stock_price_providers(objectref) - A dictionary which contain symbol and PriceSeriesProvider object
+Return:         The change rate. For example: 5 is 5%
+} 
+#endregion 
+
+using elsystem.drawingobjects;
+using tsdata.marketdata;
+using tsdata.common;
+using elsystem.collections;
+
+Input: Dictionary stocks(objectref), Dictionary stocks_open_price(objectref), Dictionary stock_price_providers(objectref);
+// stocks is a dictionary which contain symbol and weights as the following example:
+// stocks["AAPL"] = 3.6
+// stocks["MSFT"] = 5.3
+
+// stocks_open_price is a dictionary which contain symbol and open price as the following example:
+// stocks["AAPL"] = 300.1
+// stocks["MSFT"] = 258.0
+
+// price_providers is a dictionary which contain symbol and PriceSeriesProvider as the following example:
+// stocks["AAPL"] = PriceSeriesProvider
+// stocks["MSFT"] = PriceSeriesProvider
+
+var: stock_symbol("");
+var: idx(0), composite(0), weights(0), total_weights(0), today_open(0), last_price(0), change_rate(0);
+var: tsdata.marketdata.PriceSeriesProvider price_provider(null);
+
+total_weights = 0;
+composite = 0;
+for idx = 0 to stocks.Keys.Count - 1
+begin
+	// Get Stock Symbols
+	stock_symbol = stocks.Keys[idx] astype string;
+	price_provider = stock_price_providers[stock_symbol] astype  tsdata.marketdata.PriceSeriesProvider;
+	
+	if stocks_open_price[stock_symbol] <> Null Then
+	Begin
+		today_open = stocks_open_price[stock_symbol] astype double;
+		weights = stocks[stock_symbol] astype double;
+		last_price =  price_provider.Close[0];
+		change_rate = ChangedRate(today_open, last_price) * weights;
+		total_weights += weights;
+		composite += change_rate;
+	End;
+end;
+
+IF composite <> 0 Then
+Begin
+	CompositeChangedRate = composite/total_weights;
+End
+
+Else
+Begin
+	CompositeChangedRate = 0;
+End;

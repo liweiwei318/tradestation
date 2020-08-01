@@ -1,0 +1,29 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			ChangedRate
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      min, hour, day, week, month
+Author:         Miller Lai
+Notes:          Calculate the changed rate
+Description:    This function calculate the changed rate with the base and last price.
+Input:          Base_Value(numericref) - The base value. For example, open price at the session start.
+                Last_Value(numericref) - The last value. For example, last close price               
+Return:         The change rate. For example: 5 is 5%
+} 
+#endregion 
+
+Input: Base_Value(numericref);
+Input: Last_Value(numericref);
+
+
+if Base_Value <> 0 and Last_Value<> 0 then begin
+	ChangedRate = ((Last_Value - Base_Value)/Base_Value)*100;
+end
+else begin
+    ChangedRate=0;
+end;
