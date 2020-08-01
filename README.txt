@@ -1,22 +1,55 @@
 Folder Structure
 
-�u�w3rd-party
-�x 
-�u�wdoc
-�x  �|�webooks
-�u�wsrc
-�x  �u�wActivityBar
-�x  �u�wFunction
-�x  �u�wIndicator
-�x  �u�wPaintBar
-�x  �u�wProbabilityMap
-�x  �u�wShowMe
-�x  �u�wStrategy
-�x  �x  �u�wDayTrading
-�x  �x  �|�wSwingTrading
-�x  �|�wTradingApp
-�|�wTDEProjects
-
+├─3rd-party
+│  ├─ActivityBar
+│  ├─Function
+│  ├─Indicator
+│  ├─PaintBar
+│  ├─ProbabilityMap
+│  ├─ShowMe
+│  ├─Strategy
+│  │  ├─DayTrading
+│  │  └─SwingTrading
+│  └─TradingApp
+├─doc
+│  └─ebooks
+│      ├─EasyLanguage
+│      └─Strategy
+├─src
+│  ├─ActivityBar
+│  ├─Constants
+│  ├─Function
+│  │  ├─CorporateActions
+│  │  ├─DateTime
+│  │  ├─LookAndFeel
+│  │  ├─Math
+│  │  ├─OptionRelated
+│  │  ├─Others
+│  │  ├─Portfolio
+│  │  ├─Profiles
+│  │  ├─Statistical
+│  │  ├─StockFundamentals
+│  │  └─TechnicalAnalysis
+│  ├─Indicator
+│  ├─PaintBar
+│  ├─ProbabilityMap
+│  ├─ShowMe
+│  ├─Strategy
+│  │  ├─DayTrading
+│  │  └─SwingTrading
+│  └─TradingApp
+├─TDEProjects
+└─temporarily
+    ├─ActivityBar
+    ├─Function
+    ├─Indicator
+    ├─PaintBar
+    ├─ProbabilityMap
+    ├─ShowMe
+    ├─Strategy
+    │  ├─DayTrading
+    │  └─SwingTrading
+    └─TradingApp
 
 Development Guide
 
