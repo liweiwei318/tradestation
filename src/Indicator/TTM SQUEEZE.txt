@@ -10,7 +10,7 @@ Version:		01.00.00
 TS Version:		10.0 (Update 46)
 Timeframe:      min, hour, day, week, month
 Author:         Miller Lai
-Notes:          This is a implementation base on  John Carter's TTM( The author of Mastering the Trade book)
+Notes:          This is a implementation base on John Carter's TTM( The author of Mastering the Trade book)
 Description:    This indicator drawing the TTM squeeze as histogram with different color
 } 
 #endregion 
