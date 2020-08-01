@@ -1,0 +1,52 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			Load_SPY_Weight_Stocks
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      Any
+Author:         Miller Lai
+Notes:          To load SPY weight stock symbols and weight
+Description:    This function is to load the QQQ weight stock symbol with weight.
+Input:          Dictionary stocks(objectref) - This is a output arguments          
+Return:         0 is success.
+} 
+#endregion 
+using elsystem.collections;
+using elsystem.collections;
+
+Input: Dictionary stocks(objectref);
+
+stocks["MSFT"]= 5.71 ;  
+stocks["AAPL"]= 5.63 ;  
+stocks["AMZN"]= 4.66 ;  
+stocks["FB"]=   2.08 ;    
+stocks["GOOG"]= 1.69 ;  
+stocks["GOOGL"]=1.65 ; 
+stocks["JNJ"]=  1.47 ;   
+stocks["BRK.B"]=1.40 ;
+stocks["V"]=    1.24 ;    
+stocks["PG"]=   1.16 ;   
+stocks["JPM"]=  1.12 ; 
+stocks["UNH"]=  1.07 ; 
+stocks["HD"]=   1.06 ;   
+stocks["MA"]=   1.02 ;   
+stocks["INTC"]= 0.95 ; 
+stocks["NVDA"]= 0.93 ; 
+stocks["VZ"]=   0.86 ;   
+stocks["FPE"]=  0.79 ;  
+stocks["DIS"]=  0.79 ;  
+stocks["T"]=    0.79  ;    
+stocks["NFLX"]= 0.78 ;  
+stocks["ADBE"]= 0.77 ;  
+stocks["PYPL"]= 0.76 ;  
+stocks["CSCO"]= 0.75 ; 
+stocks["MRK"]=  0.73 ;  
+stocks["CMCSA"]=0.72 ;
+stocks["BAC"]=  0.71 ;  
+stocks["PEP"]=  0.71 ;  
+ 
+Load_SPY_Weight_Stocks = 0;

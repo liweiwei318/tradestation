@@ -1,0 +1,43 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			AlignPriceSeriesProviderInterval
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      Any
+Author:         Miller Lai
+Notes:          To align PriceSeriesProvider's  Interval
+Description:    Convert the Timezone for Chart
+Input:          tsdata.marketdata.PriceSeriesProvider priceProvider(objectref) - The PriceSeriesProvider should 
+Return:         0 is success
+} 
+#endregion 
+
+using elsystem;
+using tsdata.marketdata;
+
+Input: tsdata.marketdata.PriceSeriesProvider priceProvider(objectref);
+var:  elsystem.TimeZone ChartTimeZone(0);
+
+{ currently, this indicator does not work when using Natural Hours for bar 
+	building }
+
+{ align the PSP bar interval and range }
+priceProvider.Interval = DataInterval.FromCurrentSymbolData( BarType, BarInterval );
+priceProvider.Range.FirstDate = BarDateTime[MaxBarsBack];
+
+{ align the PSP time zone, session, and natural hours; see commentary for the 
+	ConvertTimeZone method }
+
+ChartTimeZone = AnalysisTechnique.DataStreams.DefaultStream.TimeZone;
+	
+priceProvider.TimeZone = ConvertTimeZone(ChartTimeZone);
+priceProvider.SessionName = AnalysisTechnique.DataStreams.DefaultStream.SessionName;
+//	AnalysisTechnique.DataStreams.DefaultStream.SessionName;
+//PSPToAlign.UseNaturalHours = 
+// AnalysisTechnique.DataStreams.DefaultStream.UsesNaturalHours;	
+
+AlignPriceSeriesProviderInterval = 0;

@@ -1,0 +1,35 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			Load_QQQ_Weight_Stocks
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      Any
+Author:         Miller Lai
+Notes:          To load QQQ weight stock symbols and weight
+Description:    This function is to load the QQQ weight stock symbol with weight.
+Input:          Dictionary stocks(objectref) - This is a output arguments          
+Return:         0 is success.
+} 
+#endregion 
+using elsystem.collections;
+
+Input: Dictionary stocks(objectref);
+
+stocks["AAPL"]= 11.74 ;  
+stocks["MSFT"]= 11.21 ;  
+stocks["AMZN"]= 10.87 ;  
+stocks["FB"]=   4.8  ;    
+stocks["GOOG"]= 3.81 ;  
+stocks["GOOGL"]=3.72 ; 
+stocks["TSLA"]= 2.61 ; 
+stocks["INTC"]= 2.38 ; 
+stocks["NVDA"]=  2.32 ;   
+stocks["NFLX"]=  1.95 ;   
+stocks["ADBE"]=  1.94 ;   
+stocks["PYPL"]=  1.90 ;   
+stocks["CSCO"]=  1.86 ; 
+Load_QQQ_Weight_Stocks = 0;

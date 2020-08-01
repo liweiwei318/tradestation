@@ -1,0 +1,28 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			ConvertTimeZone
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      Any
+Author:         Miller Lai
+Notes:          Calculate the composited stock's change rate
+Description:    This function calculate the changed rate of the composited stocks with weight
+Input:          elsystem.TimeZone ChartTimeZone(objectref) - AnalysisTechnique.DataStreams.DefaultStream.TimeZone
+Return:         The TimeZone for Exchange or Local
+} 
+#endregion 
+
+Input:  elsystem.TimeZone ChartTimeZone(objectref);
+
+switch ( ChartTimeZone )
+	begin	
+		case elsystem.TimeZone.Exchange:
+			ConvertTimeZone = tsdata.common.TimeZone.Exchange;
+		
+		case elsystem.TimeZone.Local:
+			ConvertTimeZone = tsdata.common.TimeZone.Local;	
+	end;	

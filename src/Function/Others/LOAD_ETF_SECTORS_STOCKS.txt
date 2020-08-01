@@ -1,0 +1,33 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			Load_ETF_Sectors_Stocks
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      Any
+Author:         Miller Lai
+Notes:          To load ETF Sectors symbols and weight
+Description:    This function is to load the ETF sectors symbol with weight.
+Input:          Dictionary stocks(objectref) - This is a output arguments          
+Return:         0 is success.
+} 
+#endregion 
+
+using elsystem.collections;
+Input: Dictionary stocks(objectref);
+
+stocks["XLY"]= 10.72;
+stocks["XLP"]= 9.41 ;
+stocks["XLE"]= 9.46 ;
+stocks["XLF"]= 18.34;
+stocks["XLV"]= 14.2 ;
+stocks["XLI"]= 8.06 ;
+stocks["XLB"]= 3.16 ;
+stocks["XLRE"]= 2.5  ;
+stocks["XLK"]= 16.45;
+stocks["XLU"]= 7.69 ;
+	            
+Load_ETF_Sectors_Stocks = 0;

@@ -1,0 +1,38 @@
+#region - Documentation
+{ 
+--------------------------------------------------------------------------------------------------- 
+IDENTIFICATION 
+============== 
+Name:			min
+Type:			Function
+Version:		01.00.00
+TS Version:		10.0 (Update 46)
+Timeframe:      Any
+Author:         Miller Lai
+Notes:          normalize value between 0~1
+Description:    Returns the smaller of two values.
+Input:          current_value(Numeric) - current value
+                max_value(Numeric) - max value    
+                min_value(Numeric) - min value  
+Return:         The smaller of two values.
+} 
+#endregion 
+
+input: current_value(Numeric), max_value(Numeric), min_value(Numeric);
+
+if max_value = min_value Then
+begin
+	RaiseRuntimeError( "Normalize function cannot be called with max_value = min_value" );
+end;
+
+if current_value = min_value Then
+
+Begin
+	Normalize = 0;
+End
+
+Else
+Begin
+
+	Normalize = (current_value - min_value) / (max_value - min_value);
+End;
